@@ -17,7 +17,7 @@ FOR EACH ROW
 BEGIN
       CALL SP_AtualizaEstoqueAves (
       new.id_aviario, 
-      new.periodo, 
+      new.ciclo, 
       new.data_mortalidade,
       new.lote_id, 
       old.femea_box1 - new.femea_box1,

@@ -14,12 +14,10 @@ class CreateEnviosTable extends Migration
     public function up()
     {
         Schema::create('envios', function (Blueprint $table) {
-            $table->integer('id_envio')->primary();
+            $table->increments('id_envio');
             $table->timestamp('data_envio');
             $table->time('hora_envio');
-            $table->integer('periodo');
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->integer('ciclo');
             $table->integer('incubaveis');
             $table->integer('comerciais');
             $table->integer('postura_dia');
@@ -35,9 +33,5 @@ class CreateEnviosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('envios');
-        Schema::table('envios', function (Blueprint $table) {
-            $table->dropForeign('envios_lote_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

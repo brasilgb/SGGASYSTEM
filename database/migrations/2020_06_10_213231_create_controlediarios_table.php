@@ -14,11 +14,9 @@ class CreateControlediariosTable extends Migration
     public function up()
     {
         Schema::create('controlediarios', function (Blueprint $table) {
-            $table->integer('id_controle')->primary();
+            $table->increments('id_controle');
             $table->timestamp('data_controle');
-            $table->integer('periodo');
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->integer('ciclo');
             $table->integer('aviario');
             $table->decimal('temperatura_max', 10,1);
             $table->decimal('temperatura_min', 10,1);
@@ -39,9 +37,5 @@ class CreateControlediariosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('controlediarios');
-        Schema::table('controlediarios', function (Blueprint $table) {
-            $table->dropForeign('controles_lote_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

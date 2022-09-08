@@ -14,9 +14,9 @@ class CreateLoteTable extends Migration
     public function up()
     {
         Schema::create('lotes', function (Blueprint $table) {
-            $table->integer('id_lote')->primary();
-            $table->integer('periodo');
-            $table->date('data_lote');
+            $table->increments('id_lote');
+            $table->integer('ciclo');
+            $table->timestamp('data_lote');
             $table->string('lote', 50);
             $table->integer('femea');
             $table->integer('macho');

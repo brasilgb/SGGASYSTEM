@@ -2,3 +2,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.react-datepicker__triangle {
+    display: none;
+}
+
+.react-datepicker-popper {
+    top: -5px !important;
+}
+
+.react-datepicker__header,
+.react-datepicker__day--selected {
+    background-color: #3B82F6 !important;
+    color: #fff !important
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+    color: #fff !important;
+}
+
+.react-datepicker__month-container {
+    background-color: #ffffff !important;
+    border: 1px solid #ddd !important;
+    padding: 0 !important;
+    border-radius: 5px !important;
+}

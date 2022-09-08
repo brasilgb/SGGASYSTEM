@@ -14,9 +14,9 @@ class CreateFixtarefasTable extends Migration
     public function up()
     {
         Schema::create('fixtarefas', function (Blueprint $table) {
-            $table->integer('id_fixtarefa')->primary();
+            $table->increments('id_fixtarefa');
             $table->timestamp('data_inicio');
-            $table->integer('periodo');
+            $table->integer('ciclo');
             $table->char('descritivo');
             $table->text('descricao');
             $table->timestamp('data_termino')->nullable();

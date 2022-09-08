@@ -14,10 +14,8 @@ class CreateRecebimentosTable extends Migration
     public function up()
     {
         Schema::create('recebimentos', function (Blueprint $table) {
-            $table->integer('id_recebimento')->primary();
-            $table->integer('periodo');
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->increments('id_recebimento');
+            $table->integer('ciclo');
             $table->timestamp('data_recebimento');
             $table->time('hora_recebimento');
             $table->string('sexo_ave');
@@ -35,9 +33,5 @@ class CreateRecebimentosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('recebimentos');
-        Schema::table('recebimentos', function (Blueprint $table) {
-            $table->dropForeign('recebimentos_lote_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

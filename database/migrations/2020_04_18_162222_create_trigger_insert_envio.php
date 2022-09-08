@@ -15,7 +15,7 @@ CREATE TRIGGER `TRG_insert_envios` AFTER INSERT ON `envios`
 FOR EACH ROW 
 BEGIN
       CALL SP_AtualizaEstoqueOvos (
-      new.periodo, 
+      new.ciclo, 
       new.data_envio,
       new.lote_id, 
       new.incubaveis * -1,

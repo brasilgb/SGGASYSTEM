@@ -13,11 +13,9 @@ class CreateEstoqueAvesTable extends Migration {
      */
     public function up() {
         Schema::create('estoque_aves', function (Blueprint $table) {
-            $table->bigIncrements('id_estoque');
+            $table->increments('id_estoque');
             $table->integer('id_aviario');
-            $table->integer('periodo');
-            $table->integer('lote');
-            $table->foreign('lote')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->integer('ciclo');
             $table->timestamp('data_estoque');
             $table->integer('femea_box1');
             $table->integer('femea_box2')->nullable();
@@ -42,10 +40,6 @@ class CreateEstoqueAvesTable extends Migration {
      */
     public function down() {
         Schema::dropIfExists('estoque_aves');
-        Schema::table('estoque_aves', function (Blueprint $table) {
-            $table->dropForeign('aves_lote_foreign');
-            $table->dropColumn('lote');
-        });
     }
 
 }

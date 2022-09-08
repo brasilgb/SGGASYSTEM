@@ -14,11 +14,9 @@ class CreateColetasTable extends Migration
     public function up()
     {
         Schema::create('coletas', function (Blueprint $table) {
-            $table->integer('id_coleta')->primary();
+            $table->increments('id_coleta');
             $table->integer('id_aviario');
-            $table->integer('periodo');
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->integer('ciclo');
             $table->integer('coleta');
             $table->timestamp('data_coleta');
             $table->time('hora_coleta');
@@ -52,9 +50,5 @@ class CreateColetasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('coletas');
-        Schema::table('coletas', function (Blueprint $table) {
-            $table->dropForeign('coletas_lote_id_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

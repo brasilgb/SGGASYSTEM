@@ -14,11 +14,9 @@ class CreateAviarioTable extends Migration
     public function up()
     {
         Schema::create('aviarios', function (Blueprint $table) {
-            $table->integer('id_aviario')->primary();
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
-            $table->integer('periodo');
-            $table->timestamp('data_aviario')->nulllable();
+            $table->increments('id_aviario');
+            $table->integer('ciclo');
+            $table->timestamp('data_aviario');
             $table->string('aviario');
             $table->integer('femea_box1');
             $table->integer('femea_box2')->nullable();
@@ -43,9 +41,5 @@ class CreateAviarioTable extends Migration
     public function down()
     {
         Schema::dropIfExists('aviarios');
-        chema::table('aviarios', function (Blueprint $table) {
-            $table->dropForeign('aviarios_lote_id_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

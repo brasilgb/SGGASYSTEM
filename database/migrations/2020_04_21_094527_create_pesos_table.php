@@ -14,11 +14,9 @@ class CreatePesosTable extends Migration
     public function up()
     {
         Schema::create('pesos', function (Blueprint $table) {
-            $table->integer('id_peso')->primary();
+            $table->increments('id_peso');
             $table->timestamp('data_peso');
-            $table->integer('periodo');
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->integer('ciclo');
             $table->integer('aviario_id');
             $table->integer('semana');
             $table->decimal('femea_box1', 10,2);
@@ -43,9 +41,5 @@ class CreatePesosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('pesos');
-        Schema::table('pesos', function (Blueprint $table) {
-            $table->dropForeign('pesos_lote_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

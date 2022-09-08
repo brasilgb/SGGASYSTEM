@@ -112,7 +112,7 @@ const Create = () => {
           >
             {() => (
               <Form>
-                <AboxBody>
+                <AboxBody className="w-1/2">
                   {postMessageErro &&
                     <div>{<AMessageError message={postMessageErro} />}</div>
                   }

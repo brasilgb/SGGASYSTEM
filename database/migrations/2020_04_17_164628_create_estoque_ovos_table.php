@@ -14,10 +14,8 @@ class CreateEstoqueOvosTable extends Migration
     public function up()
     {
         Schema::create('estoque_ovos', function (Blueprint $table) {
-            $table->bigIncrements('id_estoque');
-            $table->integer('periodo');
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->increments('id_estoque');
+            $table->integer('ciclo');
             $table->timestamp('data_estoque');
             $table->integer('incubaveis');
             $table->integer('comerciais');
@@ -35,9 +33,5 @@ class CreateEstoqueOvosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('estoque_ovos');
-        Schema::table('estoque_ovos', function (Blueprint $table) {
-            $table->dropForeign('envios_lote_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

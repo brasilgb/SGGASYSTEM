@@ -61,14 +61,14 @@ const SideBar = () => {
                             <span className="mx-4 font-normal">Ciclos</span>
                         </Link>
                         <div>
-                            <Link
+                            <buttom
                                 onClick={() => setShowMenu(!showMenu)}
-                                className="flex items-center px-4 py-2 mt-2 text-gray-600 transition-colors duration-200 transform rounded-md hover:bg-gray-200"
+                                className="flex items-center px-4 py-2 mt-2 cursor-pointer text-gray-600 transition-colors duration-200 transform rounded-md hover:bg-gray-200"
                                 href="#"
                             >
                                 <FaWarehouse size={20} />
                                 <span className="mx-4 font-normal">Lotes/Aviários</span>
-                            </Link>
+                            </buttom>
                             <div className="pt-2 pl-4">
                                 <div className={`${showMenu ? 'flex' : 'hidden'} flex-col pl-2 pr-2 text-gray-500 border-l border-gray-200`}>
                                     <Link className="flex items-center px-4 py-2 mt-2 text-gray-600 transition-colors duration-200 transform rounded-md hover:bg-gray-200" href="#">
@@ -82,6 +82,18 @@ const SideBar = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <Link
+                            className={`flex items-center px-4 py-2 transition-colors duration-200 transform rounded-md text-gray-600 hover:bg-gray-200`}
+                            href={route('home')}
+                        >
+                            <IconContext.Provider value={{ color: "#666", className: "font-bold text-xl" }}>
+                                <div>
+                                    <IoSpeedometerOutline />
+                                </div>
+                            </IconContext.Provider>
+                            <span className="mx-4 font-normal">Coletas</span>
+                        </Link>
 
                         <hr className="my-6 border-gray-200" />
                         <Link className="flex items-center px-4 py-2 mt-2 text-gray-600 transition-colors duration-200 transform rounded-md hover:bg-gray-200" href="#">

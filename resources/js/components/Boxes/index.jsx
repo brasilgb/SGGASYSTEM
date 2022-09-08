@@ -20,10 +20,10 @@ export const AboxHeader = ({ children }) => {
     )
 };
 
-export const AboxBody = ({ children }) => {
+export const AboxBody = ({ children, className }) => {
     return (
         <Fragment>
-            <div className="py-6 px-5 overflow-x-auto">
+            <div className={`p-6 overflow-x-auto ${className}`}>
                 {children}
             </div>
         </Fragment>

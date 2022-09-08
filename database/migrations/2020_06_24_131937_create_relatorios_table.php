@@ -14,7 +14,7 @@ class CreateRelatoriosTable extends Migration
     public function up()
     {
         Schema::create('relatorios', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('descritivo');
             $table->timestamps();
         });

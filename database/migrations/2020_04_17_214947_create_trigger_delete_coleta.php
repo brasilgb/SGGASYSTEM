@@ -15,7 +15,7 @@ CREATE TRIGGER `TRG_delete_coletas` AFTER DELETE ON `coletas`
 FOR EACH ROW 
 BEGIN
       CALL SP_AtualizaEstoqueOvos (
-      old.periodo, 
+      old.ciclo, 
       old.data_coleta,
       old.lote_id, 
       old.incubaveis * -1,

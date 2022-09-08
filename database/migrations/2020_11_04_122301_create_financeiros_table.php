@@ -14,7 +14,7 @@ class CreateFinanceirosTable extends Migration
     public function up()
     {
         Schema::create('financeiros', function (Blueprint $table) {
-            $table->integer('id_financeiro')->primary();
+            $table->increments('id_financeiro');
             $table->decimal('valor_ovo', 10,2);
             $table->timestamps();
         });

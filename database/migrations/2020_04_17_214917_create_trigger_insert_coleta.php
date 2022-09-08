@@ -15,7 +15,7 @@ CREATE TRIGGER `TGR_insert_coletas` AFTER INSERT ON `coletas`
 FOR EACH ROW
 BEGIN
                 CALL SP_AtualizaEstoqueOvos (
-                new.periodo,
+                new.ciclo,
                 new.data_coleta,
                 new.lote_id,
                 new.incubaveis,

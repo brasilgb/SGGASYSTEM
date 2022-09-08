@@ -16,7 +16,7 @@ CREATE TRIGGER `TRG_delete_envios` AFTER DELETE ON `envios`
 FOR EACH ROW 
 BEGIN
       CALL SP_AtualizaEstoqueOvos (
-      old.periodo, 
+      old.ciclo, 
       old.data_envio,
       old.lote_id, 
       old.incubaveis,

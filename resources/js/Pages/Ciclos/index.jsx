@@ -13,7 +13,7 @@ import Layouts from '../../Layouts';
 import { Link } from '@inertiajs/inertia-react';
 registerLocale("ptBR", ptBR);
 
-const Ciclos = () => {
+const Ciclos = ({ ciclos }) => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [newSearch, setNewSearch] = useState(false);
@@ -94,23 +94,25 @@ const Ciclos = () => {
                                 <ATh>Ativo</ATh>
                                 <ATh className={'w-20'}></ATh>
                             </ATr>
+                            {ciclos.map((item, index) => (
+                                <ATr colorRow={index % 2}>
+                                    <ATd>{item.id_ciclo}</ATd>
+                                    <ATd>{moment(item.data_inicial).format('DD/MM/YYYY')}</ATd>
+                                    <ATd>{item.semana_inicial}</ATd>
+                                    <ATd>23</ATd>
+                                    <ATd>2</ATd>
+                                    <ATd>
+                                        {1 > 0
+                                            ? <IoCheckmarkCircleSharp size={25} color="green" onClick={(e) => alterAction(0, e)} className="cursor-pointer" />
+                                            : <IoCloseCircleSharp size={25} color="red" onClick={(e) => alterAction(1, e)} className="cursor-pointer" />
+                                        }
+                                    </ATd>
+                                    <ATd>
+                                        <AButtonExcuir onclick={(e) => deleteRow(item.id_ciclo, e)} />
+                                    </ATd>
+                                </ATr>
+                            ))}
 
-                            <ATr colorRow={2 % 2}>
-                                <ATd>5</ATd>
-                                <ATd>{moment('2022-08-12').format('DD/MM/YYYY')}</ATd>
-                                <ATd>{2}</ATd>
-                                <ATd>23</ATd>
-                                <ATd>2</ATd>
-                                <ATd>
-                                    {1 > 0
-                                        ? <IoCheckmarkCircleSharp size={25} color="green" onClick={(e) => alterAction(0, e) } className="cursor-pointer" />
-                                        : <IoCloseCircleSharp size={25} color="red" onClick={(e) => alterAction(1, e) } className="cursor-pointer" />
-                                    }
-                                </ATd>
-                                <ATd>
-                                    <AButtonExcuir onclick={(e) => deleteRow(1, e)} />
-                                </ATd>
-                            </ATr>
 
                         </ATable>
 

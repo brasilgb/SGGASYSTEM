@@ -16,7 +16,7 @@ CREATE TRIGGER `TRG_delete_aviarios` AFTER DELETE ON `aviarios` FOR EACH ROW
 BEGIN
       CALL SP_AtualizaEstoqueAves (
       old.id_aviario, 
-      old.periodo, 
+      old.ciclo, 
       old.data_aviario,
       old.lote_id, 
       old.femea_box1 * -1,

@@ -15,8 +15,8 @@ class CiclosController extends Controller
      */
     public function index()
     {
-        // $ciclos = 
-        return Inertia::render('Ciclos/index');
+        $ciclos = Ciclos::get();
+        return Inertia::render('Ciclos/index', ['ciclos' => $ciclos]);
     }
 
     /**

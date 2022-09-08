@@ -14,10 +14,8 @@ class CreateConsumosTable extends Migration
     public function up()
     {
         Schema::create('consumos', function (Blueprint $table) {
-            $table->integer('id_consumo')->primary();
-            $table->integer('periodo');
-            $table->integer('lote_id');
-            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->increments('id_consumo');
+            $table->integer('ciclo');
             $table->integer('aviario_id');
             $table->timestamp('data_consumo');
             $table->integer('femea_box1');
@@ -42,9 +40,5 @@ class CreateConsumosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('consumos');
-        Schema::table('consumos', function (Blueprint $table) {
-            $table->dropForeign('consumos_lote_foreign');
-            $table->dropColumn('lote_id');
-        });
     }
 }

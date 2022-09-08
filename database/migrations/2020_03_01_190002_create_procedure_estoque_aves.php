@@ -14,8 +14,8 @@ class CreateProcedureEstoqueAves extends Migration {
 DROP PROCEDURE IF EXISTS `SP_AtualizaEstoqueAves`;            
 CREATE PROCEDURE `SP_AtualizaEstoqueAves` (
 IN `SP_aviario` INT(10),
-IN `SP_periodo` INT(10),
-IN `SP_data_estoque` timestamp,
+IN `SP_ciclo` INT(10),
+IN `SP_data_estoque` date,
 IN `SP_lote` INT(10),
 IN `SP_femea_box1` INT(10),
 IN `SP_femea_box2` INT(10),
@@ -37,7 +37,7 @@ select count(*) into contador from estoque_aves where  id_aviario = SP_aviario;
 if contador > 0 then
 update estoque_aves set 
 id_aviario = SP_aviario, 
-periodo = SP_periodo, 
+ciclo = SP_ciclo, 
 data_estoque = SP_data_estoque, 
 lote = SP_lote,  
 femea_box1 = femea_box1 + SP_femea_box1, 
@@ -55,7 +55,7 @@ where id_aviario = SP_aviario;
 else
 insert into estoque_aves (
 id_aviario, 
-periodo,
+ciclo,
 data_estoque,
 lote, 
 femea_box1,
@@ -71,7 +71,7 @@ macho,
 tot_ave
 ) values(
 SP_aviario, 
-SP_periodo,
+SP_ciclo,
 SP_data_estoque,
 SP_lote,
 SP_femea_box1, 

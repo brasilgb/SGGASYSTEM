@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeriodosTable extends Migration {
+class CreateCiclosTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,15 +12,14 @@ class CreatePeriodosTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('periodos', function (Blueprint $table) {
-            $table->integer('id_periodo')->primary();
-            $table->integer('periodo');
+        Schema::create('ciclos', function (Blueprint $table) {
+            $table->increments('id_ciclo');
             $table->timestamp('data_inicial');
             $table->integer('semana_inicial');
             $table->integer('semana_final');
             $table->integer('ativo');
-            $table->timestamp('desativacao')->nullable();
             $table->timestamps();
+            $table->timestamp('desativacao')->nullable();
         });
     }
 
@@ -30,7 +29,7 @@ class CreatePeriodosTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('periodos');
+        Schema::dropIfExists('ciclos');
     }
 
 }
