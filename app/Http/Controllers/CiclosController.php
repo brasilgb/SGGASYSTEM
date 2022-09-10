@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciclos;
+use App\Models\Semanas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class CiclosController extends Controller
@@ -15,7 +17,7 @@ class CiclosController extends Controller
      */
     public function index()
     {
-        $ciclos = Ciclos::get();
+        $ciclos = Ciclos::OrderBy('ativo', 'desc')->get();
         return Inertia::render('Ciclos/index', ['ciclos' => $ciclos]);
     }
 
@@ -35,9 +37,25 @@ class CiclosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Ciclos $ciclos)
     {
-        //
+
+        $ciclo = [
+            'data_inicial' => $request->data_inicial,
+            'semana_inicial' => $request->semana_inicial,
+            'ativo' => 1
+        ];
+        Ciclos::where('ativo', 1)->update(['ativo' => 0]);
+        $idciclo = Ciclos::create($ciclo);
+
+        $semana = [
+            'ciclo' => $idciclo->id_ciclo,
+            'semana' => $request->semana_inicial,
+            'data_inicial' => $request->data_inicial
+        ];
+
+        Semanas::create($semana);
+        return Redirect::route('ciclos.index');
     }
 
     /**

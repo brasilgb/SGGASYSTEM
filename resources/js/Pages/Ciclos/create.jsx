@@ -6,13 +6,13 @@ import SubBar from '../../components/SubBar';
 import { Formik, Field, Form, ErrorMessage, useFormikContext, useField } from 'formik';
 import schema from './schema';
 
-import api from '../../services/api';
 import moment from 'moment';
 import { AMessageError, AMessageSuccess } from '../../components/Messages';
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.min.css";
 import ja from "date-fns/locale/pt-BR";
 import Layouts from '../../Layouts';
+import { Inertia } from '@inertiajs/inertia'
 
 registerLocale("ja", ja);
 
@@ -44,38 +44,19 @@ const Create = () => {
       />
     );
   };
-
+  const [values, setValues] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+  })
   const onsubmit = async (values) => {
     setLoading(true);
-    await api.get('ciclos')
-      .then((ciclos) => {
-        const response = ciclos.data.ciclos
-          .filter((d) => (moment(d.dataInicial).format('YYYY-MM-DD') === moment(values.data_inicial)
-            .format('YYYY-MM-DD') || (d.ativo === true)))
-        if (response.length === 0) {
-          const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiZW1haWxAZW1haWwuY29tIiwiaWF0IjoxNjYxMjgzMTI0fQ.1jGRCMknZDrbN4YiU0JxMJYoThX-tf03g8po85-aOMU";
-          api.post('ciclos', {
-            data_inicial: moment(values.data_inicial).format('YYYY-MM-DD hh:mm:ss'),
-            semn_inicial: values.semn_inicial
-          }, { headers: { "Authorization": `Bearer ${token}` } })
-            .then((response) => {
-              setLoading(false);
-              setPostMessageSuccess(response.data.message);
-              setPostMessageErro(false);
-            }).catch((err) => {
-              setLoading(false);
-              console.log(err);
-            })
-        } else {
-          setLoading(false);
-          setPostMessageErro('Existe um ciclo cadastrado para esta data ou algum ciclo ativo!');
-          setPostMessageSuccess(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    // console.log(values);
+    Inertia.post(route('ciclos.store'), {
+        'data_inicial': moment(values.data_inicial).format('YY-MM-DD H:m:s'),
+        'semana_inicial': values.semana_inicial
+    });
+    // console.log(response)
   }
 
   return (
@@ -106,8 +87,7 @@ const Create = () => {
             onSubmit={onsubmit}
             initialValues={{
               data_inicial: new Date(),
-              semn_inicial: '',
-              ativo: 1
+              semana_inicial: ''
             }}
           >
             {() => (
@@ -131,14 +111,14 @@ const Create = () => {
                     />
                   </div>
                   <div className="mt-4">
-                    <label className={styleLabel} htmlFor="semn_inicial">Semana Inicial</label>
+                    <label className={styleLabel} htmlFor="semana_inicial">Semana Inicial</label>
                     <Field
                       className={styleInput}
-                      id="semn_inicial"
-                      name="semn_inicial"
+                      id="semana_inicial"
+                      name="semana_inicial"
                       type="text"
                     />
-                    <ErrorMessage name="semn_inicial" className="text-red-500 bg-slate-600" />
+                    <ErrorMessage name="semana_inicial" className="text-red-500 bg-slate-600" />
                   </div>
                 </AboxBody>
                 <AboxFooter>

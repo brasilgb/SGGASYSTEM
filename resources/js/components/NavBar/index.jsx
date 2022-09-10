@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
-import { IoNotificationsOutline, IoPersonOutline } from 'react-icons/io5';
+import { IoNotificationsOutline, IoPersonOutline, IoTimeOutline } from 'react-icons/io5';
+import { IconContext } from 'react-icons/lib';
 
 const NavBar = () => {
     const [showLogged, setShowLogged] = useState(false);
@@ -17,9 +18,11 @@ const NavBar = () => {
                             {/* <!-- Mobile menu button --> */}
                             <div className="flex md:hidden">
                                 <button type="button" className="text-gray-50 focus:outline-none focus:text-gray-600" aria-label="toggle menu">
-                                    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
-                                        <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
-                                    </svg>
+                                    <IconContext.Provider value={{ color: "#666", className: "font-bold text-xl" }}>
+                                        <div>
+                                            <IoTimeOutline />
+                                        </div>
+                                    </IconContext.Provider>
                                 </button>
                             </div>
                         </div>
@@ -35,7 +38,7 @@ const NavBar = () => {
 
                             <div className="flex items-center mt-0">
                                 <div className="relative">
-                                    <button onClick={() => {setShowNotification(!showNotification);setShowLogged(false)}} className="mx-4 text-gray-600">
+                                    <button onClick={() => { setShowNotification(!showNotification); setShowLogged(false) }} className="mx-4 text-gray-600">
                                         <IoNotificationsOutline size={24} />
                                     </button>
                                     {showNotification &&
@@ -44,14 +47,14 @@ const NavBar = () => {
                                                 <div>x</div>
                                                 <div>5 Notificações</div>
                                             </div>
-                                            
+
                                             <h1>menu notification</h1>
                                         </div>
                                     }
                                 </div>
 
                                 <div className="relative">
-                                    <button onClick={() => {setShowLogged(!showLogged); setShowNotification(false)}} className="mx-4 text-gray-600">
+                                    <button onClick={() => { setShowLogged(!showLogged); setShowNotification(false) }} className="mx-4 text-gray-600">
                                         <IoPersonOutline size={24} />
                                     </button>
                                     {showLogged &&

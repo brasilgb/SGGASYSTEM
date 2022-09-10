@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CiclosController;
+use App\Http\Controllers\SemanasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,4 @@ use App\Http\Controllers\CiclosController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('/ciclos', CiclosController::class);
+Route::resource('/semanas', SemanasController::class);

@@ -14,12 +14,10 @@ class CreateCiclosTable extends Migration {
     public function up() {
         Schema::create('ciclos', function (Blueprint $table) {
             $table->increments('id_ciclo');
-            $table->timestamp('data_inicial');
+            $table->date('data_inicial');
             $table->integer('semana_inicial');
-            $table->integer('semana_final');
             $table->integer('ativo');
             $table->timestamps();
-            $table->timestamp('desativacao')->nullable();
         });
     }
 
