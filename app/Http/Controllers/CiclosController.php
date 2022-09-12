@@ -98,8 +98,19 @@ class CiclosController extends Controller
      * @param  \App\Models\Ciclos  $ciclos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ciclos $ciclos)
+    public function destroy(Ciclos $ciclos, $id)
     {
-        //
+        $ciclos->where('id_ciclo', $id)->delete();
+        return Redirect::route('ciclos.index');
+    }
+
+    /**
+     * Altera ativação do ciclo de produção
+     */
+    public function active(Ciclos $ciclos, Request $request)
+    {
+        $ciclos->where('ativo', 1)->update(['ativo' => 0]);
+        $ciclos->where('id_ciclo', $request->id)->update(['ativo' => $request->active]);
+        return Redirect::route('ciclos.index');
     }
 }

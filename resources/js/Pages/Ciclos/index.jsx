@@ -4,7 +4,7 @@ import { AButomAdd, AButomReload, AButtonExcuir } from '../../components/Buttons
 import SubBar from '../../components/SubBar';
 import { IoCheckmarkCircleSharp, IoCloseCircleSharp, IoSearch, IoSearchOutline, IoTimeOutline } from 'react-icons/io5';
 import { ATable, ATd, ATh, ATr } from '../../components/Tables';
-
+import { Inertia } from '@inertiajs/inertia';
 import moment from 'moment';
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.min.css";
@@ -12,23 +12,35 @@ import ptBR from "date-fns/locale/pt-BR";
 import Layouts from '../../Layouts';
 import { Link } from '@inertiajs/inertia-react';
 import { IconContext } from 'react-icons/lib';
+import ModalDelete from '../../components/Modal';
 registerLocale("ptBR", ptBR);
 
 const Ciclos = ({ ciclos }) => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [newSearch, setNewSearch] = useState(false);
+    const [showModal, setShowModal] = useState(false)
+    const [idDelete, setIdDelete] = useState()
 
-    const deleteRow = ((i, e) => {
+    const deleteRow = ((id, e) => {
         e.preventDefault();
-        confirm(i);
+        Inertia.delete(route('ciclos.destroy',`${ id }`))
+        setShowModal(false);
     });
 
-    const alterAction = ((i, e) => {
+    const alterAction = ((id, active, e) => {
         e.preventDefault();
-        confirm(i);
+        Inertia.put(route('ciclos.active'), {
+            'id': id, 
+            'active': active
+        });
     });
 
+    const toggleModal = ((id, e) => {
+        e.preventDefault();
+        setShowModal(!showModal);
+        setIdDelete(id);
+    })
     return (
         <Fragment>
             <Layouts>
@@ -67,7 +79,7 @@ const Ciclos = ({ ciclos }) => {
                                             </IconContext.Provider>
                                         </Link>
                                     </div>
-                                    
+
                                     <DatePicker
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2 z-10"
                                         selected={startDate}
@@ -103,12 +115,13 @@ const Ciclos = ({ ciclos }) => {
                                     <ATd>2</ATd>
                                     <ATd>
                                         {item.ativo
-                                            ? <IoCheckmarkCircleSharp size={25} color="green" onClick={(e) => alterAction(0, e)} className="cursor-pointer" />
-                                            : <IoCloseCircleSharp size={25} color="red" onClick={(e) => alterAction(1, e)} className="cursor-pointer" />
+                                            ? <IoCheckmarkCircleSharp size={25} color="green" onClick={(e) => alterAction(item.id_ciclo, 0, e)} className="cursor-pointer" />
+                                            : <IoCloseCircleSharp size={25} color="red" onClick={(e) => alterAction(item.id_ciclo, 1, e)} className="cursor-pointer" />
                                         }
                                     </ATd>
                                     <ATd>
-                                        <AButtonExcuir onclick={(e) => deleteRow(item.id_ciclo, e)} />
+                                        <AButtonExcuir onclick={(e) => toggleModal(item.id_ciclo, e)} />
+                                        
                                     </ATd>
                                 </ATr>
                             ))}
@@ -118,11 +131,12 @@ const Ciclos = ({ ciclos }) => {
                     </AboxBody>
 
                     <AboxFooter>
-
                         Paginação
-
                     </AboxFooter>
                 </ABox>
+                {showModal &&
+                    <ModalDelete closemodal={() => setShowModal(!showModal)} deleterow={(e) => deleteRow(idDelete, e)} />
+                }
             </Layouts>
         </Fragment>
     )
