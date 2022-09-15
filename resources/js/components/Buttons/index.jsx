@@ -90,14 +90,15 @@ export const AButtonSave = ({ loading }) => {
     )
 };
 
-export const AButtonExcuir = (({ onclick }) => {
+export const AButtonExcuir = ({ onclick, active }) => {
     return (
         <Fragment>
             <Link
+                disabled={active}
                 type="button"
                 as="button"
                 onClick={onclick}
-                className="flex items-center justify-start bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded shadow-md"
+                className={`flex items-center justify-start py-1 px-2 rounded ${active ? 'bg-red-300 text-gray-50':'shadow-md bg-red-500 hover:bg-red-700 text-white'}`}
             >
                 <IconContext.Provider value={{ color: '#FFF', className: "text-md mr-1" }}>
                     <IoTrash />
@@ -106,4 +107,4 @@ export const AButtonExcuir = (({ onclick }) => {
             </Link>
         </Fragment>
     )
-})
+};

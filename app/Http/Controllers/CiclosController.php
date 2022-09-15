@@ -7,6 +7,7 @@ use App\Models\Semanas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Database\Eloquent\Collection;
 
 class CiclosController extends Controller
 {
@@ -17,7 +18,7 @@ class CiclosController extends Controller
      */
     public function index()
     {
-        $ciclos = Ciclos::OrderBy('ativo', 'desc')->get();
+        $ciclos = Ciclos::OrderBy('ativo', 'desc')->paginate(15);
         return Inertia::render('Ciclos/index', ['ciclos' => $ciclos]);
     }
 

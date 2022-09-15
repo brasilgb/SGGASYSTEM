@@ -13,6 +13,7 @@ import Layouts from '../../Layouts';
 import { Link } from '@inertiajs/inertia-react';
 import { IconContext } from 'react-icons/lib';
 import ModalDelete from '../../components/Modal';
+import Pagination from '../../components/Pagination';
 registerLocale("ptBR", ptBR);
 
 const Ciclos = ({ ciclos }) => {
@@ -24,14 +25,14 @@ const Ciclos = ({ ciclos }) => {
 
     const deleteRow = ((id, e) => {
         e.preventDefault();
-        Inertia.delete(route('ciclos.destroy',`${ id }`))
+        Inertia.delete(route('ciclos.destroy', `${id}`))
         setShowModal(false);
     });
 
-    const alterAction = ((id, active, e) => {
+    const alterAction = ((e, id, active) => {
         e.preventDefault();
         Inertia.put(route('ciclos.active'), {
-            'id': id, 
+            'id': id,
             'active': active
         });
     });
@@ -106,7 +107,7 @@ const Ciclos = ({ ciclos }) => {
                                 <ATh>Ativo</ATh>
                                 <ATh className={'w-20'}></ATh>
                             </ATr>
-                            {ciclos.map((item, index) => (
+                            {ciclos.data.map((item, index) => (
                                 <ATr key={index} colorRow={index % 2}>
                                     <ATd>{item.id_ciclo}</ATd>
                                     <ATd>{moment(item.data_inicial).format('DD/MM/YYYY')}</ATd>
@@ -115,13 +116,12 @@ const Ciclos = ({ ciclos }) => {
                                     <ATd>2</ATd>
                                     <ATd>
                                         {item.ativo
-                                            ? <IoCheckmarkCircleSharp size={25} color="green" onClick={(e) => alterAction(item.id_ciclo, 0, e)} className="cursor-pointer" />
-                                            : <IoCloseCircleSharp size={25} color="red" onClick={(e) => alterAction(item.id_ciclo, 1, e)} className="cursor-pointer" />
+                                            ? <IoCheckmarkCircleSharp size={25} color="green" onClick={(e) => alterAction(e, item.id_ciclo, 0)} className="cursor-pointer" />
+                                            : <IoCloseCircleSharp size={25} color="red" onClick={(e) => alterAction(e, item.id_ciclo, 1)} className="cursor-pointer" />
                                         }
                                     </ATd>
                                     <ATd>
-                                        <AButtonExcuir onclick={(e) => toggleModal(item.id_ciclo, e)} />
-                                        
+                                        <AButtonExcuir active={item.ativo} onclick={(e) => toggleModal(item.id_ciclo, e)} />
                                     </ATd>
                                 </ATr>
                             ))}
@@ -129,10 +129,11 @@ const Ciclos = ({ ciclos }) => {
                         </ATable>
 
                     </AboxBody>
-
-                    <AboxFooter>
-                        Paginação
-                    </AboxFooter>
+                    {ciclos.total > ciclos.per_page &&
+                        <AboxFooter>
+                            <Pagination data={ciclos} />
+                        </AboxFooter>
+                    }
                 </ABox>
                 {showModal &&
                     <ModalDelete closemodal={() => setShowModal(!showModal)} deleterow={(e) => deleteRow(idDelete, e)} />
