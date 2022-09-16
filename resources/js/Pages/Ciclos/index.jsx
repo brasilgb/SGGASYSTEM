@@ -6,19 +6,15 @@ import { IoCheckmarkCircleSharp, IoCloseCircleSharp, IoSearch, IoSearchOutline, 
 import { ATable, ATd, ATh, ATr } from '../../components/Tables';
 import { Inertia } from '@inertiajs/inertia';
 import moment from 'moment';
-import DatePicker, { registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.min.css";
-import ptBR from "date-fns/locale/pt-BR";
 import Layouts from '../../Layouts';
-import { Link } from '@inertiajs/inertia-react';
-import { IconContext } from 'react-icons/lib';
+
 import ModalDelete from '../../components/Modal';
 import Pagination from '../../components/Pagination';
-registerLocale("ptBR", ptBR);
+import { AFormSearchDate } from '../../components/Form';
 
 const Ciclos = ({ ciclos }) => {
 
-    const [startDate, setStartDate] = useState(new Date());
+
     const [newSearch, setNewSearch] = useState(false);
     const [showModal, setShowModal] = useState(false)
     const [idDelete, setIdDelete] = useState()
@@ -57,41 +53,11 @@ const Ciclos = ({ ciclos }) => {
                 <ABox>
                     <AboxHeader>
                         <div className='w-full flex justify-start'>
-                            {newSearch
-                                ? <AButomReload reload="" />
-                                : <AButomAdd url='ciclos.create' />
-                            }
-
+                            <AButomAdd url='ciclos.create' />
                         </div>
                         <div className='w-full flex justify-end'>
                             {/* Formulário de busca */}
-                            <div className="p-0">
-                                <label htmlFor="form-search" className="sr-only">Search</label>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 z-20">
-                                        <Link
-                                            type="button"
-                                            as="button"
-                                        >
-                                            <IconContext.Provider value={{ color: "#666", className: "font-bold text-xl" }}>
-                                                <div>
-                                                    <IoSearchOutline />
-                                                </div>
-                                            </IconContext.Provider>
-                                        </Link>
-                                    </div>
-
-                                    <DatePicker
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2 z-10"
-                                        selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
-                                        id="data_inicial"
-                                        name="data_inicial"
-                                        dateFormat="dd/MM/yyyy"
-                                        locale='ptBR'
-                                    />
-                                </div>
-                            </div>
+                            <AFormSearchDate />
                             {/* Formulário de busca */}
                         </div>
                     </AboxHeader>
@@ -136,7 +102,7 @@ const Ciclos = ({ ciclos }) => {
                     }
                 </ABox>
                 {showModal &&
-                    <ModalDelete closemodal={() => setShowModal(!showModal)} deleterow={(e) => deleteRow(idDelete, e)} />
+                    <ModalDelete info="este ciclo" closemodal={() => setShowModal(!showModal)} deleterow={(e) => deleteRow(idDelete, e)} />
                 }
             </Layouts>
         </Fragment>

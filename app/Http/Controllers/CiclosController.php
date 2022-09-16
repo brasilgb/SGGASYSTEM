@@ -16,9 +16,14 @@ class CiclosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ciclos = Ciclos::OrderBy('ativo', 'desc')->paginate(15);
+        if($request->data_inicial){
+            $ciclos = Ciclos::OrderBy('ativo', 'desc')->paginate(15);
+        }else{
+            $ciclos = Ciclos::OrderBy('ativo', 'desc')->paginate(15);
+        }
+        
         return Inertia::render('Ciclos/index', ['ciclos' => $ciclos]);
     }
 
