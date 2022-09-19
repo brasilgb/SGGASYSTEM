@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { ABox, AboxBody, AboxFooter, AboxHeader } from '../../components/Boxes';
-import { AButomAdd, AButomReload, AButtonExcuir } from '../../components/Buttons';
+import { AButomAdd, AButomBack, AButomReload, AButtonExcuir } from '../../components/Buttons';
 import SubBar from '../../components/SubBar';
 import { IoCheckmarkCircleSharp, IoCloseCircleSharp, IoSearch, IoSearchOutline, IoTimeOutline } from 'react-icons/io5';
 import { ATable, ATd, ATh, ATr } from '../../components/Tables';
@@ -12,7 +12,7 @@ import ModalDelete from '../../components/Modal';
 import Pagination from '../../components/Pagination';
 import { AFormSearchDate } from '../../components/Form';
 
-const Ciclos = ({ ciclos }) => {
+const Ciclos = ({ ciclos, isBack }) => {
 
 
     const [newSearch, setNewSearch] = useState(false);
@@ -32,7 +32,7 @@ const Ciclos = ({ ciclos }) => {
             'active': active
         });
     });
-
+ 
     const toggleModal = ((id, e) => {
         e.preventDefault();
         setShowModal(!showModal);
@@ -53,7 +53,10 @@ const Ciclos = ({ ciclos }) => {
                 <ABox>
                     <AboxHeader>
                         <div className='w-full flex justify-start'>
-                            <AButomAdd url='ciclos.create' />
+                            {isBack
+                            ? <AButomBack url={'ciclos.index'} />
+                            : <AButomAdd url='ciclos.create' />
+                            }
                         </div>
                         <div className='w-full flex justify-end'>
                             {/* Formulário de busca */}

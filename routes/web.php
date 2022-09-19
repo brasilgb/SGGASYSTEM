@@ -16,7 +16,9 @@ use App\Http\Controllers\SemanasController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::put('/ciclos/active', [CiclosController::class, 'active'])->name('ciclos.active');
+Route::post('/ciclos/search', [CiclosController::class, 'search'])->name('ciclos.search');
 Route::resource('/ciclos', CiclosController::class);
 
 Route::resource('/semanas', SemanasController::class);

@@ -16,17 +16,16 @@ class CiclosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->data_inicial){
-            $ciclos = Ciclos::OrderBy('ativo', 'desc')->paginate(15);
-        }else{
-            $ciclos = Ciclos::OrderBy('ativo', 'desc')->paginate(15);
-        }
-        
-        return Inertia::render('Ciclos/index', ['ciclos' => $ciclos]);
+        $ciclos = Ciclos::OrderBy('ativo', 'desc')->paginate(15);
+        return Inertia::render('Ciclos/index', ['ciclos' => $ciclos, 'isBack' => $isBack = 0]);
     }
 
+    public function search(Request $request){
+$ciclos = Ciclos::whereDate('data_inicial', $request->data_inicial)->OrderBy('ativo', 'desc')->paginate(15);
+return Inertia::render('Ciclos/index', ['ciclos' => $ciclos, 'isBack' => $isBack = 1]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -61,7 +60,8 @@ class CiclosController extends Controller
         ];
 
         Semanas::create($semana);
-        return Redirect::route('ciclos.index');
+
+        return Redirect::route('ciclos.index')->with('message', 'Category Created Successfully');;
     }
 
     /**

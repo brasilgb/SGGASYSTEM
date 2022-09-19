@@ -6,27 +6,35 @@ registerLocale("ptBR", ptBR);
 import { Link } from '@inertiajs/inertia-react';
 import { IconContext } from 'react-icons/lib';
 import { IoSearchOutline } from 'react-icons/io5';
+import { Inertia } from '@inertiajs/inertia';
+import moment from 'moment/moment';
 
-export const AFormSearchDate = ({ onchange, value, ref }) => {
+export const AFormSearchDate = () => {
 
     const [startDate, setStartDate] = useState(new Date());
+
+    const handleSearch = (handled) => {
+        Inertia.post(route('ciclos.search'), {
+            'data_inicial': moment(handled).format('YYYY-MM-DD'),
+        });
+    }
 
     return (
         <Fragment>
             <div className="p-0">
                 <label htmlFor="form-search" className="sr-only">Search</label>
-                <div className="relative">
+                <form className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 z-20">
-                        <Link
+                        <button
                             type="button"
-                            as="button"
+                            onClick={() => handleSearch(startDate)}
                         >
                             <IconContext.Provider value={{ color: "#666", className: "font-bold text-xl" }}>
                                 <div>
                                     <IoSearchOutline />
                                 </div>
                             </IconContext.Provider>
-                        </Link>
+                        </button>
                     </div>
 
                     <DatePicker
@@ -38,7 +46,7 @@ export const AFormSearchDate = ({ onchange, value, ref }) => {
                         dateFormat="dd/MM/yyyy"
                         locale='ptBR'
                     />
-                </div>
+                </form>
             </div>
         </Fragment>
     )

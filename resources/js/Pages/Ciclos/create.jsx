@@ -53,10 +53,13 @@ const Create = () => {
     setLoading(true);
     // console.log(values);
     Inertia.post(route('ciclos.store'), {
-        'data_inicial': moment(values.data_inicial).format('YY-MM-DD H:m:s'),
-        'semana_inicial': values.semana_inicial
+      'data_inicial': moment(values.data_inicial).format('YYYY-MM-DD H:m:s'),
+      'semana_inicial': values.semana_inicial,
+    })
+    .then((response) => {
+      console.log(response)
     });
-    // console.log(response)
+    
   }
 
   return (

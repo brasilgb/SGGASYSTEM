@@ -97,7 +97,7 @@ const SideBar = () => {
 
                         <hr className="my-6 border-gray-200" />
                         <Link className="flex items-center px-4 py-2 mt-2 text-gray-600 transition-colors duration-200 transform rounded-md hover:bg-gray-200" href="#">
-                        <IconContext.Provider value={{ color: "#666", className: "font-bold text-xl" }}>
+                            <IconContext.Provider value={{ color: "#666", className: "font-bold text-xl" }}>
                                 <div>
                                     <IoTimeOutline />
                                 </div>
